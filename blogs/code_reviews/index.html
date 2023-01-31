@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width">
+<link rel="icon" href=/fav.png type="image/gif">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      media="print" onload="this.media='all'" />
+<noscript>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
+</noscript>
+
+
+<link rel="stylesheet" href="/css/font.css" media="all">
+
+
+
+<meta property="og:title" content="Code Reviews Don&#39;t Suck" />
+<meta property="og:description" content="You just started at your dream job as a software engineer. You feel like you are at the top of this world. You feel motivated and want to make a difference. It’s been a week and it’s now time for you to start shipping code. You choose a sprint task that you think you can accomplish. You want to impress your colleagues.
+You created your first feature request. And then, you receive 100 negative comments on it." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sauravbiswas.github.io/blogs/code_reviews/" /><meta property="article:section" content="blogs" />
+<meta property="article:published_time" content="2023-01-27T02:36:08-08:00" />
+<meta property="article:modified_time" content="2023-01-27T02:36:08-08:00" /><meta property="og:site_name" content="Software Musings" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Code Reviews Don&#39;t Suck"/>
+<meta name="twitter:description" content="You just started at your dream job as a software engineer. You feel like you are at the top of this world. You feel motivated and want to make a difference. It’s been a week and it’s now time for you to start shipping code. You choose a sprint task that you think you can accomplish. You want to impress your colleagues.
+You created your first feature request. And then, you receive 100 negative comments on it."/>
+
+
+<link rel="stylesheet" href="/bootstrap-5/css/bootstrap.min.css" media="all"><link rel="stylesheet" href="/css/header.css" media="all">
+<link rel="stylesheet" href="/css/footer.css" media="all">
+
+
+<link rel="stylesheet" href="/css/theme.css" media="all">
+
+
+
+
+<style>
+    :root {
+        --text-color: #F5F5F5;
+        --text-secondary-color: #F5F5F5;
+        --background-color: #313552;
+        --secondary-background-color: #64ffda1a;
+        --primary-color: #F1E0AC;
+        --secondary-color: #30475E;
+
+         
+        --text-color-dark: #e4e6eb;
+        --text-secondary-color-dark: #b0b3b8;
+        --background-color-dark: #18191a;
+        --secondary-background-color-dark: #212529;
+        --primary-color-dark: #ffffff;
+        --secondary-color-dark: #212529;
+    }
+    body {
+        font-size: 1.1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    html {
+        background-color: var(--background-color) !important;
+    }
+
+    body::-webkit-scrollbar {
+        width: .5em;
+        height: .5em;
+        background-color: var(--background-color);
+    }
+    
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px var(--background-color);
+        border-radius: 1rem;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        border-radius: 1rem;
+        background-color: var(--secondary-color);
+        outline: 1px solid var(--background-color);
+    }
+
+    #search-content::-webkit-scrollbar {
+        width: .5em;
+        height: .1em;
+        background-color: var(--background-color);
+    }
+</style>
+
+<meta name="description" content="">
+<link rel="stylesheet" href="/css/single.css">
+
+
+<script defer src="/fontawesome-5/all-5.15.4.js"></script>
+
+  <title>
+Code Reviews Don&#39;t Suck | Software Musings
+
+  </title>
+</head>
+
+<body class="light" onload="loading()">
+  
+  
+
+
+
+<header>
+    <nav class="pt-3 navbar navbar-expand-lg animate">
+        <div class="container-fluid mx-xs-2 mx-sm-5 mx-md-5 mx-lg-5">
+            
+            <a class="navbar-brand primary-font text-wrap" href="/">
+                
+                <img src="/fav.png" width="30" height="30"
+                    class="d-inline-block align-top">
+                Software Musings
+                
+            </a>
+
+            
+
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24" data-view-component="true">
+                    <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z"></path>
+                </svg>
+            </button>
+
+            
+            <div class="collapse navbar-collapse text-wrap primary-font" id="navbarContent">
+                <ul class="navbar-nav ms-auto text-center">
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#about" aria-label="about">
+                            About Me
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#experience"
+                            aria-label="experience">
+                            Worked For
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#education"
+                            aria-label="education">
+                            Education
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#projects"
+                            aria-label="projects">
+                            Publications
+                        </a>
+                    </li>
+                    
+
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/blogs" title="Blog posts">
+                            
+                            Blog
+                        </a>
+                    </li>
+                    
+                    
+
+                    
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+<div id="content">
+<section id="single">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-12 col-lg-9">
+        <div class="pr-lg-4">
+          <div class="title mb-5">
+            <h1 class="text-center mb-4">Code Reviews Don&#39;t Suck</h1>
+            <div class="text-center">
+              Saurav Biswas 
+              <small>|</small>
+              Jan 27, 2023
+            </div>
+          </div>
+          
+          <div class="featured-image">
+            <img class="img-fluid" src="/images/projects/converter.jpg" alt="Code Reviews Don&#39;t Suck">
+          </div>
+          
+          <article class="page-content  p-2">
+          <p><img src="https://miro.medium.com/max/1280/1*Oxbm6OYEzllkmUz3H8SUAQ.jpeg" alt=""></p>
+<p>You just started at your dream job as a software engineer. You feel like you are at the top of this world. You feel motivated and want to make a difference. It’s been a week and it’s now time for you to start shipping code. You choose a sprint task that you think you can accomplish.  <strong>You want to impress your colleagues.</strong><br>
+You created your first feature request. And then, you receive 100 negative comments on it. Some reviews sound like, “<em>Oh do you even know how a HashMap works?</em>”. You feel sad, devastated and depressed.</p>
+<p>We have all been there. Life is funny sometimes. On the one hand, programming is so much fun. You can be creative. You are like Leonardo DaVinci painting out his next Monalisa. But then reality hits you hard.</p>
+<p>Stop and think. What did you do wrong?</p>
+<h2 id="1-you-didnt-put-in-a-lot-of-thought"><strong>1. You didn’t put in a lot of thought.</strong></h2>
+<p><img src="https://miro.medium.com/max/1400/0*yJjYDu475BvIdqgq" alt=""></p>
+<p>Photo by  <a href="https://unsplash.com/@thoughtcatalog?utm_source=medium&amp;utm_medium=referral">Thought Catalog</a>  on  <a href="https://unsplash.com/?utm_source=medium&amp;utm_medium=referral">Unsplash</a></p>
+<p>We programmers love to churn out stuff fast. But speed should not come at the expense of quality. Before you hit the submit review button, take a long hard look at the changes you made. Did you cover all test cases? Did you handle exceptions correctly? Are you leaving potential memory leaks? All of this matters when you are writing code for a business.</p>
+<h2 id="2-you-didnt-write-enough-tests"><strong>2. You didn’t write enough tests.</strong></h2>
+<p><img src="https://miro.medium.com/max/1400/0*iMvaw2qYA9Og06fj" alt=""></p>
+<p>Photo by  <a href="https://unsplash.com/@dtravisphd?utm_source=medium&amp;utm_medium=referral">David Travis</a>  on  <a href="https://unsplash.com/?utm_source=medium&amp;utm_medium=referral">Unsplash</a></p>
+<p>Tests can actually improve code readability and help you find deep lurking bugs, in some cases, non-obvious ones. Make sure you write enough of them and get into the practice of doing so.</p>
+<h2 id="3-you-didnt-understand-the-problem-statement-completely"><strong>3. You didn’t understand the problem statement completely.</strong></h2>
+<p><img src="https://miro.medium.com/max/1400/0*-cW-sJvrbppbbbP3" alt=""></p>
+<p>Photo by  <a href="https://unsplash.com/@mimithian?utm_source=medium&amp;utm_medium=referral">Mimi Thian</a>  on  <a href="https://unsplash.com/?utm_source=medium&amp;utm_medium=referral">Unsplash</a></p>
+<p>Stop and think. Do you understand the business that you are writing software for? If not, you should consider reading and re-reading the content of the task that you were assigned. Make sure you can outline the requirements via a flow diagram.  <strong>Tangible</strong> tasks are easier to complete.</p>
+<h2 id="4-all-comments-are-not-legitimate"><strong>4. All Comments are Not Legitimate</strong></h2>
+<p>Every team has developers who might not like each other. Does your team have one such person who singles you out on your code changes? If you feel so, you are not the only one. I have faced it in one of my previous workplaces. In such scenarios, talk with your manager. A good manager should always identify such workplace issues and sort them out.</p>
+<p>Don’t be afraid to speak up against such comments. Code reviews are meant to empower developers to learn from each other and improve. By no means should they make someone feel depressed.</p>
+<h2 id="5-be-confident-in-what-you-deliver-and-deliver-it-with-quality"><strong>5. Be confident in what you deliver, and deliver it with quality.</strong></h2>
+<p><img src="https://miro.medium.com/max/1400/0*5xhYROhLzkayqLj3" alt=""></p>
+<p>Photo by  <a href="https://unsplash.com/@srz?utm_source=medium&amp;utm_medium=referral">sydney Rae</a>  on  <a href="https://unsplash.com/?utm_source=medium&amp;utm_medium=referral">Unsplash</a></p>
+<p>Remember that no code review is perfect. There will always be comments. The general idea is to get useful feedback from your peers before you merge it into the main codebase. By no means should it affect your morale and self-esteem.</p>
+
+          </article>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="sticky-sidebar">
+          
+          <aside class="toc">
+              <h5>
+                Table Of Contents
+              </h5>
+              <div class="toc-content">
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-you-didnt-put-in-a-lot-of-thought"><strong>1. You didn’t put in a lot of thought.</strong></a></li>
+    <li><a href="#2-you-didnt-write-enough-tests"><strong>2. You didn’t write enough tests.</strong></a></li>
+    <li><a href="#3-you-didnt-understand-the-problem-statement-completely"><strong>3. You didn’t understand the problem statement completely.</strong></a></li>
+    <li><a href="#4-all-comments-are-not-legitimate"><strong>4. All Comments are Not Legitimate</strong></a></li>
+    <li><a href="#5-be-confident-in-what-you-deliver-and-deliver-it-with-quality"><strong>5. Be confident in what you deliver, and deliver it with quality.</strong></a></li>
+  </ul>
+</nav>
+              </div>
+          </aside>
+          
+
+          
+          <aside class="tags">
+            <h5>Tags</h5>
+            <ul class="tags-ul list-unstyled list-inline">
+              
+              <li class="list-inline-item"><a href="https://sauravbiswas.github.io/tags/review" target="_blank">Review</a></li>
+              
+              <li class="list-inline-item"><a href="https://sauravbiswas.github.io/tags/rinse" target="_blank">Rinse</a></li>
+              
+              <li class="list-inline-item"><a href="https://sauravbiswas.github.io/tags/repeat" target="_blank">Repeat</a></li>
+              
+            </ul>
+          </aside>
+          
+
+          
+          <aside class="social">
+            <h5>Social</h5>
+            <div class="social-content">
+              <ul class="list-inline">
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://twitter.com/share?text=Code%20Reviews%20Don%27t%20Suck&url=https%3a%2f%2fsauravbiswas.github.io%2fblogs%2fcode_reviews%2f">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://api.whatsapp.com/send?text=Code%20Reviews%20Don%27t%20Suck: https%3a%2f%2fsauravbiswas.github.io%2fblogs%2fcode_reviews%2f">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="mailto:?subject=Code%20Reviews%20Don%27t%20Suck&amp;body=Check out this site https%3a%2f%2fsauravbiswas.github.io%2fblogs%2fcode_reviews%2f">
+                    <i class="fa fa-envelope"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-9 p-4">
+        
+      </div>
+    </div>
+  </div>
+  <button class="p-2 px-3" onclick="topFunction()" id="topScroll">
+    <i class="fas fa-angle-up"></i>
+  </button>
+</section>
+
+<script>
+  var topScroll = document.getElementById("topScroll");
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      topScroll.style.display = "block";
+    } else {
+      topScroll.style.display = "none";
+    }
+  }
+
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+</script>
+
+
+  </div><footer>
+    <div class="container py-3" id="recent-posts">
+    
+</div><div class="text-center pt-2">
+    
+
+    
+
+    
+
+    
+
+    
+</div><div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center">
+            <div class="pb-2">
+                <a href="https://sauravbiswas.github.io" title="Software Musings">
+                    <img alt="Footer logo" src="/fav.png"
+                        height="40px" width="40px">
+                </a>
+            </div>
+            &copy; 2023  All Rights Reserved
+            <div class="text-secondary">
+                Made with
+                <span class="text-danger">
+                    &#10084;
+                </span>
+                and
+                <a href="https://github.com/gurusabarish/hugo-profile" target="_blank"
+                    title="Designed and developed by gurusabarish">
+                    Hugo Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div></footer><script src="/bootstrap-5/js/bootstrap.bundle.min.js"></script>
+<script>
+    if (document.body.className.includes("dark")) {
+        document.body.classList.remove('dark');
+        localStorage.setItem("pref-theme", 'light');
+    }
+</script>
+
+
+
+<script>
+    let loadingIcons;
+
+    function loading() {
+        myVar = setTimeout(showPage, 100);
+    }
+
+    function showPage() {
+        try{
+            document.getElementById("loading-icons").style.display = "block";
+        } catch(err) {}
+    }
+</script>
+
+
+
+
+
+
+
+
+
+  <section id="search-content" class="py-2">
+    <div class="container" id="search-results"></div>
+  </section>
+</body>
+
+</html>

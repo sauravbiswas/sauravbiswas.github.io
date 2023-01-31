@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width">
+<link rel="icon" href=/fav.png type="image/gif">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      media="print" onload="this.media='all'" />
+<noscript>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
+</noscript>
+
+
+<link rel="stylesheet" href="/css/font.css" media="all">
+
+
+
+<meta property="og:title" content="Refactoring Code" />
+<meta property="og:description" content="Refactoring is the process of changing a software system in such a way that it does not alter the external behavior of the code, yet improves its internal structure.
+It is a disciplined way to clean up code that minimizes the chances of introducing bugs. In essence, when you refactor, you are improving the design of the code after it has been written.” — Martin Fowler (Father of code smell)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sauravbiswas.github.io/blogs/refactoring/" /><meta property="article:section" content="blogs" />
+<meta property="article:published_time" content="2021-04-03T23:29:21+05:30" />
+<meta property="article:modified_time" content="2021-04-03T23:29:21+05:30" /><meta property="og:site_name" content="Software Musings" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Refactoring Code"/>
+<meta name="twitter:description" content="Refactoring is the process of changing a software system in such a way that it does not alter the external behavior of the code, yet improves its internal structure.
+It is a disciplined way to clean up code that minimizes the chances of introducing bugs. In essence, when you refactor, you are improving the design of the code after it has been written.” — Martin Fowler (Father of code smell)."/>
+
+
+<link rel="stylesheet" href="/bootstrap-5/css/bootstrap.min.css" media="all"><link rel="stylesheet" href="/css/header.css" media="all">
+<link rel="stylesheet" href="/css/footer.css" media="all">
+
+
+<link rel="stylesheet" href="/css/theme.css" media="all">
+
+
+
+
+<style>
+    :root {
+        --text-color: #F5F5F5;
+        --text-secondary-color: #F5F5F5;
+        --background-color: #313552;
+        --secondary-background-color: #64ffda1a;
+        --primary-color: #F1E0AC;
+        --secondary-color: #30475E;
+
+         
+        --text-color-dark: #e4e6eb;
+        --text-secondary-color-dark: #b0b3b8;
+        --background-color-dark: #18191a;
+        --secondary-background-color-dark: #212529;
+        --primary-color-dark: #ffffff;
+        --secondary-color-dark: #212529;
+    }
+    body {
+        font-size: 1.1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    html {
+        background-color: var(--background-color) !important;
+    }
+
+    body::-webkit-scrollbar {
+        width: .5em;
+        height: .5em;
+        background-color: var(--background-color);
+    }
+    
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px var(--background-color);
+        border-radius: 1rem;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        border-radius: 1rem;
+        background-color: var(--secondary-color);
+        outline: 1px solid var(--background-color);
+    }
+
+    #search-content::-webkit-scrollbar {
+        width: .5em;
+        height: .1em;
+        background-color: var(--background-color);
+    }
+</style>
+
+<meta name="description" content="">
+<link rel="stylesheet" href="/css/single.css">
+
+
+<script defer src="/fontawesome-5/all-5.15.4.js"></script>
+
+  <title>
+Refactoring Code | Software Musings
+
+  </title>
+</head>
+
+<body class="light" onload="loading()">
+  
+  
+
+
+
+<header>
+    <nav class="pt-3 navbar navbar-expand-lg animate">
+        <div class="container-fluid mx-xs-2 mx-sm-5 mx-md-5 mx-lg-5">
+            
+            <a class="navbar-brand primary-font text-wrap" href="/">
+                
+                <img src="/fav.png" width="30" height="30"
+                    class="d-inline-block align-top">
+                Software Musings
+                
+            </a>
+
+            
+
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24" data-view-component="true">
+                    <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z"></path>
+                </svg>
+            </button>
+
+            
+            <div class="collapse navbar-collapse text-wrap primary-font" id="navbarContent">
+                <ul class="navbar-nav ms-auto text-center">
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#about" aria-label="about">
+                            About Me
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#experience"
+                            aria-label="experience">
+                            Worked For
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#education"
+                            aria-label="education">
+                            Education
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#projects"
+                            aria-label="projects">
+                            Publications
+                        </a>
+                    </li>
+                    
+
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/blogs" title="Blog posts">
+                            
+                            Blog
+                        </a>
+                    </li>
+                    
+                    
+
+                    
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+<div id="content">
+<section id="single">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-12 col-lg-9">
+        <div class="pr-lg-4">
+          <div class="title mb-5">
+            <h1 class="text-center mb-4">Refactoring Code</h1>
+            <div class="text-center">
+              Saurav Biswas 
+              <small>|</small>
+              Apr 3, 2021
+            </div>
+          </div>
+          
+          <div class="featured-image">
+            <img class="img-fluid" src="/images/projects/refactoring.png" alt="Refactoring Code">
+          </div>
+          
+          <article class="page-content  p-2">
+          <blockquote>
+<p>Refactoring is the process of changing a software system in such a way that it does not alter the external behavior of the code, yet improves its internal structure.</p>
+<p>It is a disciplined way to clean up code that minimizes the chances of introducing bugs. In essence, when you refactor, you are improving the design of the code after it has been written.” —  <em>Martin Fowler</em>  <em>(Father of</em> <a href="https://martinfowler.com/bliki/CodeSmell.html"><em>code smell</em></a><em>)</em>.</p>
+</blockquote>
+<p>Let’s face it. We are all programmers. We are smart and intelligent and like to deliver results. But how many times do we care about cleaning up code smell?</p>
+<h1 id="perfect-code-please">Perfect Code Please?</h1>
+<p>We desire to write code that is free of all bugs. One that tests all possible edge cases. One that passes linter checks each time you run a build. Code that you start to fall in love with. Surely top-notch programmers must be writing such code all the time, right?</p>
+<p>Wrong.</p>
+<p>No code is perfect.  <em>Ever</em>!</p>
+<p>Perfect code doesn’t exist, just like sacred interfaces don’t.</p>
+<p>Code is something that  <em>evolves</em>  over time. In most cases, a codebase turns into a behemoth.</p>
+<p>Complicated codebases are extremely difficult to manage.</p>
+<p>Hence, it becomes all the more important to write clean code. And refactor stuff in bits and pieces. Take an apartment for example. It is more useful to clean it in short stints rather than one long session.</p>
+<p>Whenever you tinker with a specific part of a codebase, ensure you follow up on the aspects below.</p>
+<h2 id="1-check-in-cleaner-code"><strong>1. Check-in cleaner code</strong></h2>
+<blockquote>
+<p>“Leave the campground cleaner than you found it.”—  <a href="https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882">Clean Code</a>  (by Robert Martin)</p>
+</blockquote>
+<p>The boy scout rule states that you must leave the campground cleaner than you found it. Since code degrades and rots  over time, it is good practice to check in code cleaner than what you checked out from version control.</p>
+<p>When making a code change, identify areas of improvement in the surrounding code.</p>
+<h2 id="2-meaningful-names"><strong>2. Meaningful names</strong></h2>
+<p>Meaningful names in your code ensure that you don’t have to add comments. The clearer the name, the easier it is for someone to read it and infer what it is doing.</p>
+<p>When you use a clearer and more meaningful naming convention, you are essentially  <em>saving</em>  time to write developer documentation.</p>
+<h2 id="3-responsibilities"><strong>3. Responsibilities</strong></h2>
+<p>Let’s face it. The longer a method body, the harder it is to follow. Look for lines that end up working towards a common goal. If you find such chunks,  <em>extract</em> them out into separate methods with proper names.</p>
+<p>The next person who works on that part of the code will thank you profusely. Trust me!</p>
+<p>A method should be touching upon a single requirement at a time. Following this design paradigm goes a long way in reducing code complexity.</p>
+<h2 id="4-design-patterns"><strong>4. Design patterns</strong></h2>
+<p>Design patterns enable you to implement tried and tested solutions to problems, thus saving time and effort during the implementation stage of the software development lifecycle.</p>
+<p>By using well-understood and documented solutions, the final product will have a much higher degree of comprehension. If the solution is easier to comprehend, then by extension, it will also be easier to maintain.</p>
+<h2 id="5-add-tests"><strong>5. Add tests</strong></h2>
+<p>I can’t but stress the importance of testing your code. Ensure that you have enough unit and integration tests. These not only help you identify potential pitfalls and edge cases but also provide an opportunity to refactor stuff.</p>
+<p>I can probably keep ranting about the importance of test coverage, and perhaps that warrants its own post one day.</p>
+<p>Even Google recommends writing unit tests!</p>
+<h1 id="know-when-to-draw-the-line">Know When to Draw the Line</h1>
+<p>I would conclude by saying that although refactoring is important, it should not come at the expense of completing your task at hand.</p>
+<p>Be intelligent in choosing what and how much to refactor and very soon, you will be reaping the rewards of your diligence.</p>
+<p>Thanks for reading!</p>
+
+          </article>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="sticky-sidebar">
+          
+          <aside class="toc">
+              <h5>
+                Table Of Contents
+              </h5>
+              <div class="toc-content">
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-check-in-cleaner-code"><strong>1. Check-in cleaner code</strong></a></li>
+    <li><a href="#2-meaningful-names"><strong>2. Meaningful names</strong></a></li>
+    <li><a href="#3-responsibilities"><strong>3. Responsibilities</strong></a></li>
+    <li><a href="#4-design-patterns"><strong>4. Design patterns</strong></a></li>
+    <li><a href="#5-add-tests"><strong>5. Add tests</strong></a></li>
+  </ul>
+</nav>
+              </div>
+          </aside>
+          
+
+          
+          <aside class="tags">
+            <h5>Tags</h5>
+            <ul class="tags-ul list-unstyled list-inline">
+              
+              <li class="list-inline-item"><a href="https://sauravbiswas.github.io/tags/refactor" target="_blank">Refactor</a></li>
+              
+              <li class="list-inline-item"><a href="https://sauravbiswas.github.io/tags/code" target="_blank">Code</a></li>
+              
+              <li class="list-inline-item"><a href="https://sauravbiswas.github.io/tags/improve" target="_blank">improve</a></li>
+              
+            </ul>
+          </aside>
+          
+
+          
+          <aside class="social">
+            <h5>Social</h5>
+            <div class="social-content">
+              <ul class="list-inline">
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://twitter.com/share?text=Refactoring%20Code&url=https%3a%2f%2fsauravbiswas.github.io%2fblogs%2frefactoring%2f">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://api.whatsapp.com/send?text=Refactoring%20Code: https%3a%2f%2fsauravbiswas.github.io%2fblogs%2frefactoring%2f">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="mailto:?subject=Refactoring%20Code&amp;body=Check out this site https%3a%2f%2fsauravbiswas.github.io%2fblogs%2frefactoring%2f">
+                    <i class="fa fa-envelope"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-9 p-4">
+        
+      </div>
+    </div>
+  </div>
+  <button class="p-2 px-3" onclick="topFunction()" id="topScroll">
+    <i class="fas fa-angle-up"></i>
+  </button>
+</section>
+
+<script>
+  var topScroll = document.getElementById("topScroll");
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      topScroll.style.display = "block";
+    } else {
+      topScroll.style.display = "none";
+    }
+  }
+
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+</script>
+
+
+  </div><footer>
+    <div class="container py-3" id="recent-posts">
+    
+</div><div class="text-center pt-2">
+    
+
+    
+
+    
+
+    
+
+    
+</div><div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center">
+            <div class="pb-2">
+                <a href="https://sauravbiswas.github.io" title="Software Musings">
+                    <img alt="Footer logo" src="/fav.png"
+                        height="40px" width="40px">
+                </a>
+            </div>
+            &copy; 2023  All Rights Reserved
+            <div class="text-secondary">
+                Made with
+                <span class="text-danger">
+                    &#10084;
+                </span>
+                and
+                <a href="https://github.com/gurusabarish/hugo-profile" target="_blank"
+                    title="Designed and developed by gurusabarish">
+                    Hugo Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div></footer><script src="/bootstrap-5/js/bootstrap.bundle.min.js"></script>
+<script>
+    if (document.body.className.includes("dark")) {
+        document.body.classList.remove('dark');
+        localStorage.setItem("pref-theme", 'light');
+    }
+</script>
+
+
+
+<script>
+    let loadingIcons;
+
+    function loading() {
+        myVar = setTimeout(showPage, 100);
+    }
+
+    function showPage() {
+        try{
+            document.getElementById("loading-icons").style.display = "block";
+        } catch(err) {}
+    }
+</script>
+
+
+
+
+
+
+
+
+
+  <section id="search-content" class="py-2">
+    <div class="container" id="search-results"></div>
+  </section>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tweet on Software Musings</title>
+    <link>https://sauravbiswas.github.io/tags/tweet/</link>
+    <description>Recent content in Tweet on Software Musings</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 31 Jan 2023 01:18:43 -0800</lastBuildDate><atom:link href="https://sauravbiswas.github.io/tags/tweet/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Twitter Parsing</title>
+      <link>https://sauravbiswas.github.io/blogs/twitter_parsing/</link>
+      <pubDate>Tue, 31 Jan 2023 01:18:43 -0800</pubDate>
+      
+      <guid>https://sauravbiswas.github.io/blogs/twitter_parsing/</guid>
+      <description>Introduction Popular social media platform Twitter contains a wealth of information. Not only does the text from individual tweets help in mining social information, the images and videos contained in the tweets and retweets also give an idea of the content the account handle usually browses or shares on the internet.
+I had a friend ask me to give him a script that would download all tweets, images, and videos for any account.</description>
+    </item>
+    
+  </channel>
+</rss>

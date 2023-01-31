@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Twitter Parsing on Software Musings</title>
+    <link>https://sauravbiswas.github.io/blogs/twitter_parsing/</link>
+    <description>Recent content in Twitter Parsing on Software Musings</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 31 Jan 2023 01:18:43 -0800</lastBuildDate><atom:link href="https://sauravbiswas.github.io/blogs/twitter_parsing/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

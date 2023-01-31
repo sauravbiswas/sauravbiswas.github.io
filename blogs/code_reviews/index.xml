@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code Reviews Don&#39;t Suck on Software Musings</title>
+    <link>https://sauravbiswas.github.io/blogs/code_reviews/</link>
+    <description>Recent content in Code Reviews Don&#39;t Suck on Software Musings</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Jan 2023 02:36:08 -0800</lastBuildDate><atom:link href="https://sauravbiswas.github.io/blogs/code_reviews/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

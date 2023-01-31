@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on Software Musings</title>
+    <link>https://sauravbiswas.github.io/blogs/</link>
+    <description>Recent content in Blogs on Software Musings</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 31 Jan 2023 01:18:43 -0800</lastBuildDate><atom:link href="https://sauravbiswas.github.io/blogs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Twitter Parsing</title>
+      <link>https://sauravbiswas.github.io/blogs/twitter_parsing/</link>
+      <pubDate>Tue, 31 Jan 2023 01:18:43 -0800</pubDate>
+      
+      <guid>https://sauravbiswas.github.io/blogs/twitter_parsing/</guid>
+      <description>Introduction Popular social media platform Twitter contains a wealth of information. Not only does the text from individual tweets help in mining social information, the images and videos contained in the tweets and retweets also give an idea of the content the account handle usually browses or shares on the internet.
+I had a friend ask me to give him a script that would download all tweets, images, and videos for any account.</description>
+    </item>
+    
+    <item>
+      <title>Code Reviews Don&#39;t Suck</title>
+      <link>https://sauravbiswas.github.io/blogs/code_reviews/</link>
+      <pubDate>Fri, 27 Jan 2023 02:36:08 -0800</pubDate>
+      
+      <guid>https://sauravbiswas.github.io/blogs/code_reviews/</guid>
+      <description>You just started at your dream job as a software engineer. You feel like you are at the top of this world. You feel motivated and want to make a difference. It’s been a week and it’s now time for you to start shipping code. You choose a sprint task that you think you can accomplish. You want to impress your colleagues.
+You created your first feature request. And then, you receive 100 negative comments on it.</description>
+    </item>
+    
+    <item>
+      <title>Refactoring Code</title>
+      <link>https://sauravbiswas.github.io/blogs/refactoring/</link>
+      <pubDate>Sat, 03 Apr 2021 23:29:21 +0530</pubDate>
+      
+      <guid>https://sauravbiswas.github.io/blogs/refactoring/</guid>
+      <description>Refactoring is the process of changing a software system in such a way that it does not alter the external behavior of the code, yet improves its internal structure.
+It is a disciplined way to clean up code that minimizes the chances of introducing bugs. In essence, when you refactor, you are improving the design of the code after it has been written.” — Martin Fowler (Father of code smell).</description>
+    </item>
+    
+  </channel>
+</rss>

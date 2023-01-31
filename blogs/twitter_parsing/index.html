@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width">
+<link rel="icon" href=/fav.png type="image/gif">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      media="print" onload="this.media='all'" />
+<noscript>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
+</noscript>
+
+
+<link rel="stylesheet" href="/css/font.css" media="all">
+
+
+
+<meta property="og:title" content="Twitter Parsing" />
+<meta property="og:description" content="Introduction Popular social media platform Twitter contains a wealth of information. Not only does the text from individual tweets help in mining social information, the images and videos contained in the tweets and retweets also give an idea of the content the account handle usually browses or shares on the internet.
+I had a friend ask me to give him a script that would download all tweets, images, and videos for any account." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sauravbiswas.github.io/blogs/twitter_parsing/" /><meta property="article:section" content="blogs" />
+<meta property="article:published_time" content="2023-01-31T01:18:43-08:00" />
+<meta property="article:modified_time" content="2023-01-31T01:18:43-08:00" /><meta property="og:site_name" content="Software Musings" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Twitter Parsing"/>
+<meta name="twitter:description" content="Introduction Popular social media platform Twitter contains a wealth of information. Not only does the text from individual tweets help in mining social information, the images and videos contained in the tweets and retweets also give an idea of the content the account handle usually browses or shares on the internet.
+I had a friend ask me to give him a script that would download all tweets, images, and videos for any account."/>
+
+
+<link rel="stylesheet" href="/bootstrap-5/css/bootstrap.min.css" media="all"><link rel="stylesheet" href="/css/header.css" media="all">
+<link rel="stylesheet" href="/css/footer.css" media="all">
+
+
+<link rel="stylesheet" href="/css/theme.css" media="all">
+
+
+
+
+<style>
+    :root {
+        --text-color: #F5F5F5;
+        --text-secondary-color: #F5F5F5;
+        --background-color: #313552;
+        --secondary-background-color: #64ffda1a;
+        --primary-color: #F1E0AC;
+        --secondary-color: #30475E;
+
+         
+        --text-color-dark: #e4e6eb;
+        --text-secondary-color-dark: #b0b3b8;
+        --background-color-dark: #18191a;
+        --secondary-background-color-dark: #212529;
+        --primary-color-dark: #ffffff;
+        --secondary-color-dark: #212529;
+    }
+    body {
+        font-size: 1.1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    html {
+        background-color: var(--background-color) !important;
+    }
+
+    body::-webkit-scrollbar {
+        width: .5em;
+        height: .5em;
+        background-color: var(--background-color);
+    }
+    
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px var(--background-color);
+        border-radius: 1rem;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        border-radius: 1rem;
+        background-color: var(--secondary-color);
+        outline: 1px solid var(--background-color);
+    }
+
+    #search-content::-webkit-scrollbar {
+        width: .5em;
+        height: .1em;
+        background-color: var(--background-color);
+    }
+</style>
+
+<meta name="description" content="">
+<link rel="stylesheet" href="/css/single.css">
+
+
+<script defer src="/fontawesome-5/all-5.15.4.js"></script>
+
+  <title>
+Twitter Parsing | Software Musings
+
+  </title>
+</head>
+
+<body class="light" onload="loading()">
+  
+  
+
+
+
+<header>
+    <nav class="pt-3 navbar navbar-expand-lg animate">
+        <div class="container-fluid mx-xs-2 mx-sm-5 mx-md-5 mx-lg-5">
+            
+            <a class="navbar-brand primary-font text-wrap" href="/">
+                
+                <img src="/fav.png" width="30" height="30"
+                    class="d-inline-block align-top">
+                Software Musings
+                
+            </a>
+
+            
+
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24" data-view-component="true">
+                    <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z"></path>
+                </svg>
+            </button>
+
+            
+            <div class="collapse navbar-collapse text-wrap primary-font" id="navbarContent">
+                <ul class="navbar-nav ms-auto text-center">
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#about" aria-label="about">
+                            About Me
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#experience"
+                            aria-label="experience">
+                            Worked For
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#education"
+                            aria-label="education">
+                            Education
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#projects"
+                            aria-label="projects">
+                            Publications
+                        </a>
+                    </li>
+                    
+
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/blogs" title="Blog posts">
+                            
+                            Blog
+                        </a>
+                    </li>
+                    
+                    
+
+                    
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+<div id="content">
+<section id="single">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-12 col-lg-9">
+        <div class="pr-lg-4">
+          <div class="title mb-5">
+            <h1 class="text-center mb-4">Twitter Parsing</h1>
+            <div class="text-center">
+              Saurav Biswas 
+              <small>|</small>
+              Jan 31, 2023
+            </div>
+          </div>
+          
+          <div class="featured-image">
+            <img class="img-fluid" src="/images/projects/twitter.jpg" alt="Twitter Parsing">
+          </div>
+          
+          <article class="page-content  p-2">
+          <h1 id="introduction">Introduction</h1>
+<p>Popular social media platform Twitter contains a wealth of information. Not only does the text from individual tweets help in mining social information, the images and videos contained in the tweets and retweets also give an idea of the content the account handle usually browses or shares on the internet.</p>
+<p>I had a friend ask me to give him a script that would download all tweets, images, and videos for any account. He was particularly interested in getting the images and videos that the account handle had tweeted on their timeline. With Python being my favorite language, I decided to write a small utility script that would download media files from Twitter timelines.</p>
+<p>As is the case with Python, there is a library for life, the universe, and everything. I am kidding about the universe and everything. Anyway, in today’s piece, I am going to show you how easily you can come up with something that scrapes Twitter timelines in about 100 lines of code. We are going to be using the wonderful Python library called  <a href="https://www.tweepy.org/">Tweepy</a>.</p>
+<p>First things first, fire up a terminal and install the following if you haven’t already:</p>
+<pre tabindex="0"><code>pip install tweepy
+</code></pre><h1 id="fetching-tweets-from-user-timelines">Fetching Tweets From User Timelines</h1>
+<p>The API reference and documentation for Twitter can be found at  <a href="https://developer.twitter.com/en/docs/api-reference-index">https://developer.twitter.com/en/docs/api-reference-index</a>. We are specifically interested in the user-timeline endpoint.</p>
+<pre tabindex="0"><code>GET statuses/user_timeline
+</code></pre><p>As mentioned in the docs, this returns a collection of the most recent tweets posted by the user  indicated by the  <code>screen_name</code>  or  <code>user_id</code>  parameters.</p>
+<p>User timelines belonging to protected users may only be requested when the authenticated user either “owns” the timeline or is an approved follower of the owner.</p>
+<p>The timeline returned is the equivalent of the one seen as a user’s profile on Twitter.</p>
+<p>This method can only return up to 3,200 of a user’s most recent tweets. Native retweets of other statuses by the user are included in this total, regardless of whether  <code>include_rts</code>  is set to false when requesting this resource.</p>
+<p>In order to make authenticated requests against this API endpoint, one needs to create a new Twitter app by going to  <a href="https://dev.twitter.com/apps/new">https://dev.twitter.com/apps/new</a>.</p>
+<p>Once created, you can go to the API Keys tab, and there you will find the consumer key and consumer secret entries. Make sure to copy them. Create a file called .twitter.json  and place it in your home directory.</p>
+<p>We first need to make sure that our script can use these keys and create an authenticated client. This can be done as follows:</p>
+<pre tabindex="0"><code>from tweepy import OAuthHandlerauth = OAuthHandler(consumer_key, consumer_secret)  
+api = tweepy.API(auth)
+</code></pre><p>The API object is what will be used to access user timelines.</p>
+<h1 id="pagination">Pagination</h1>
+<p>The good folks at Twitter incorporated pagination in their APIs. If you don’t know what pagination is, it is basically how APIs respond with chunks of data instead of sending the whole response in one go. This prevents abysmally large amounts of data from being sent over the network.</p>
+<p>In order to perform pagination, we must supply a page/cursor parameter with each of our requests. The problem here is this requires a lot of boilerplate code just to manage the pagination loop. To help make pagination easier and require less code, Tweepy has the  <code>Cursor</code>  object. You use it like this:</p>
+<pre><code>for status tweepy.Cursor(api.user_timeline).items(num_items):  
+    # process status here  
+    process_status(status)
+</code></pre>
+<p>If  <code>num_items</code>  is not passed, by default Twitter will return a cursor over 3,200 tweets.</p>
+<p>Sweet! Now let’s use the  <code>Cursor</code>  object in our code.</p>
+<h1 id="getting-images-and-videos">Getting Images and Videos</h1>
+<p>We are interested in parsing each tweet, checking if it has any images and videos, and then downloading these artifacts. The media object associated with a tweet is present within a nested attribute called  <code>extended_entities</code>.</p>
+<p>In order to access either the image or video URL, we first check if the  <code>extended_entities</code>  attribute is present in the tweet. If yes, then we iterate over the entries corresponding to the attribute  <code>media</code>  within the  <code>extended_entities</code>  object. We check if the type of each media object is either a  <code>media_url</code>  or a  <code>video</code>  or  <code>animated_gif</code>, which signals that it is either an image or a video, respectively. We store each URL in separate lists.</p>
+<p>The method  <code>process_tweet</code>  is where we define our logic to extract the image and video URLs.</p>
+<p>Now that you have two lists, one for videos and one for images, you can easily use something like the Python  <a href="https://pypi.org/project/wget/">wget library</a>  to download these to disk.</p>
+<p>It is tempting to use multithreading to parallelize the task of downloading the media URLs, as this is mostly disk I/O with little CPU overhead.</p>
+<p>The complete code can be found  <a href="https://github.com/sauravbiswasiupr/twitter-media-downloader">on GitHub</a>.</p>
+
+          </article>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div class="sticky-sidebar">
+          
+          <aside class="toc">
+              <h5>
+                Table Of Contents
+              </h5>
+              <div class="toc-content">
+                <nav id="TableOfContents"></nav>
+              </div>
+          </aside>
+          
+
+          
+          <aside class="tags">
+            <h5>Tags</h5>
+            <ul class="tags-ul list-unstyled list-inline">
+              
+              <li class="list-inline-item"><a href="https://sauravbiswas.github.io/tags/twitter" target="_blank">Twitter</a></li>
+              
+              <li class="list-inline-item"><a href="https://sauravbiswas.github.io/tags/parse" target="_blank">Parse</a></li>
+              
+              <li class="list-inline-item"><a href="https://sauravbiswas.github.io/tags/tweet" target="_blank">Tweet</a></li>
+              
+              <li class="list-inline-item"><a href="https://sauravbiswas.github.io/tags/extract" target="_blank">Extract</a></li>
+              
+              <li class="list-inline-item"><a href="https://sauravbiswas.github.io/tags/nlp" target="_blank">NLP</a></li>
+              
+              <li class="list-inline-item"><a href="https://sauravbiswas.github.io/tags/chatgpt" target="_blank">ChatGPT</a></li>
+              
+            </ul>
+          </aside>
+          
+
+          
+          <aside class="social">
+            <h5>Social</h5>
+            <div class="social-content">
+              <ul class="list-inline">
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://twitter.com/share?text=Twitter%20Parsing&url=https%3a%2f%2fsauravbiswas.github.io%2fblogs%2ftwitter_parsing%2f">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://api.whatsapp.com/send?text=Twitter%20Parsing: https%3a%2f%2fsauravbiswas.github.io%2fblogs%2ftwitter_parsing%2f">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="mailto:?subject=Twitter%20Parsing&amp;body=Check out this site https%3a%2f%2fsauravbiswas.github.io%2fblogs%2ftwitter_parsing%2f">
+                    <i class="fa fa-envelope"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-9 p-4">
+        
+      </div>
+    </div>
+  </div>
+  <button class="p-2 px-3" onclick="topFunction()" id="topScroll">
+    <i class="fas fa-angle-up"></i>
+  </button>
+</section>
+
+<script>
+  var topScroll = document.getElementById("topScroll");
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      topScroll.style.display = "block";
+    } else {
+      topScroll.style.display = "none";
+    }
+  }
+
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+</script>
+
+
+  </div><footer>
+    <div class="container py-3" id="recent-posts">
+    
+</div><div class="text-center pt-2">
+    
+
+    
+
+    
+
+    
+
+    
+</div><div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center">
+            <div class="pb-2">
+                <a href="https://sauravbiswas.github.io" title="Software Musings">
+                    <img alt="Footer logo" src="/fav.png"
+                        height="40px" width="40px">
+                </a>
+            </div>
+            &copy; 2023  All Rights Reserved
+            <div class="text-secondary">
+                Made with
+                <span class="text-danger">
+                    &#10084;
+                </span>
+                and
+                <a href="https://github.com/gurusabarish/hugo-profile" target="_blank"
+                    title="Designed and developed by gurusabarish">
+                    Hugo Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div></footer><script src="/bootstrap-5/js/bootstrap.bundle.min.js"></script>
+<script>
+    if (document.body.className.includes("dark")) {
+        document.body.classList.remove('dark');
+        localStorage.setItem("pref-theme", 'light');
+    }
+</script>
+
+
+
+<script>
+    let loadingIcons;
+
+    function loading() {
+        myVar = setTimeout(showPage, 100);
+    }
+
+    function showPage() {
+        try{
+            document.getElementById("loading-icons").style.display = "block";
+        } catch(err) {}
+    }
+</script>
+
+
+
+
+
+
+
+
+
+  <section id="search-content" class="py-2">
+    <div class="container" id="search-results"></div>
+  </section>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Refactor on Software Musings</title>
+    <link>https://sauravbiswas.github.io/tags/refactor/</link>
+    <description>Recent content in Refactor on Software Musings</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 03 Apr 2021 23:29:21 +0530</lastBuildDate><atom:link href="https://sauravbiswas.github.io/tags/refactor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Refactoring Code</title>
+      <link>https://sauravbiswas.github.io/blogs/refactoring/</link>
+      <pubDate>Sat, 03 Apr 2021 23:29:21 +0530</pubDate>
+      
+      <guid>https://sauravbiswas.github.io/blogs/refactoring/</guid>
+      <description>Refactoring is the process of changing a software system in such a way that it does not alter the external behavior of the code, yet improves its internal structure.
+It is a disciplined way to clean up code that minimizes the chances of introducing bugs. In essence, when you refactor, you are improving the design of the code after it has been written.” — Martin Fowler (Father of code smell).</description>
+    </item>
+    
+  </channel>
+</rss>

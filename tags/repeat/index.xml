@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Repeat on Software Musings</title>
+    <link>https://sauravbiswas.github.io/tags/repeat/</link>
+    <description>Recent content in Repeat on Software Musings</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Jan 2023 02:36:08 -0800</lastBuildDate><atom:link href="https://sauravbiswas.github.io/tags/repeat/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Code Reviews Don&#39;t Suck</title>
+      <link>https://sauravbiswas.github.io/blogs/code_reviews/</link>
+      <pubDate>Fri, 27 Jan 2023 02:36:08 -0800</pubDate>
+      
+      <guid>https://sauravbiswas.github.io/blogs/code_reviews/</guid>
+      <description>You just started at your dream job as a software engineer. You feel like you are at the top of this world. You feel motivated and want to make a difference. It’s been a week and it’s now time for you to start shipping code. You choose a sprint task that you think you can accomplish. You want to impress your colleagues.
+You created your first feature request. And then, you receive 100 negative comments on it.</description>
+    </item>
+    
+  </channel>
+</rss>
